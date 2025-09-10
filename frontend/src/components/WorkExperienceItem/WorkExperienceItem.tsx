@@ -10,6 +10,11 @@ type WorkExperienceItemProps = {
   companyName?: string;
   jobDuties?: string[];
   programmingLanguages?: ProgrammingLanguage[];
+  media?: {
+    type: "image" | "video";
+    src: string;
+    alt?: string;
+  }[];
 };
 
 export default function WorkExperienceItem({
@@ -17,7 +22,8 @@ export default function WorkExperienceItem({
   jobDuties = ["Temp Duty 1", "Temp Duty 2", "Temp Duty 3"],
   programmingLanguages = [
     { name: "Typescript", icon: "/icons/typescript-96.png" }
-  ]
+  ],
+  media = []
 }: WorkExperienceItemProps) {
   return (
     <>
@@ -45,6 +51,30 @@ export default function WorkExperienceItem({
             ))}
           </div>
         </div>
+        {media && media.length > 0 && (<div className="mt-6 pb-8">
+          <h3 className="font-semibold mb-4 mt-6">Work Samples:</h3>
+          <div className="w-full flex flex-wrap justify-evenly gap-6">
+            {media.map((mediaItem, mediaIndx) =>
+              mediaItem.type === "image" ? (
+                <img
+                  key={mediaIndx}
+                  src={mediaItem.src}
+                  alt={mediaItem.alt}
+                  loading="lazy"
+                  className="rounded-lg shadow-md h-auto max-h-[550px] object-contain"
+                />
+              ) : (
+                <video
+                  key={mediaIndx}
+                  src={mediaItem.src}
+                  controls
+                  className="rounded-lg shadow-md h-auto max-h-[400px] object-contain"
+                />
+              )
+            )}
+          </div>
+        </div>
+        )}
       </div>
     </>
   );

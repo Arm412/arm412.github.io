@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import WorkExperienceItem from "../components/WorkExperienceItem/WorkExperienceItem";
-import { jobExperiences, AboutMeNavLocations, PortfolioProjects, LanguageIcons, ToolIcons, FrameworkIcons } from "../helpers/helpers";
+import { workExperiences, AboutMeNavLocations, PortfolioProjects, LanguageIcons, ToolIcons, FrameworkIcons } from "../helpers/helpers";
 import PortfolioItem from "../components/PortfolioItem/PortfolioItem";
 import SideMenu from "../components/SideMenu/SideMenu";
 import IconListItem from "../components/IconListItem/IconListItem";
@@ -141,13 +141,14 @@ const AboutMe: React.FC = () => {
         <section id="workExperience" className="flex flex-col md:flex-row items-center gap-8 py-6 w-full mx-auto mb-20">
           <div className="bg-cardBg p-6 border-y border-secondary shadow-lg overflow-hidden w-full">
             <h2 className="text-secondary text-3xl font-bold pb-6 font-mono">Work Experience</h2>
-            {jobExperiences.map((experience, index) => (
+            {workExperiences.map((experience, index) => (
               <React.Fragment key={index}>
                 {index > 0 && <hr className="border-secondary my-4" />}
                 <WorkExperienceItem
                   companyName={experience.companyName}
                   jobDuties={experience.jobDuties}
                   programmingLanguages={experience.programmingLanguages}
+                  media={experience.media || []}
                 />
               </React.Fragment>
             ))}
