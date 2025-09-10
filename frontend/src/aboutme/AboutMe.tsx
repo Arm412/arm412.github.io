@@ -129,7 +129,7 @@ const AboutMe: React.FC = () => {
               ))}
             </div>
 
-            <h2 className="text-secondary text-3xl font-bold pb-6 font-mono mt-10">Frameworks</h2>
+            <h2 className="text-secondary text-3xl font-bold pb-6 font-mono mt-10">Frameworks & Libraries</h2>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
               {Object.entries(FrameworkIcons).map(([key, framework]) => (
                 <IconListItem icon={framework.icon} name={framework.name} key={key} />
