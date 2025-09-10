@@ -65,6 +65,10 @@ export const FrameworkIcons = {
     name: "Jetpack Compose",
     icon: "/icons/kotlin-96.png"
   },
+  TailwindCSS: {
+    name: "TailwindCSS",
+    icon: "/icons/tailwindcss-96.png"
+  }
 } as const;
 
 export const ToolIcons = {
@@ -188,6 +192,16 @@ export type PortfolioItemProps = {
   programmingLanguages?: ProgrammingLanguage[];
 };
 
+const portfolioFeatures: PortfolioFeature[] = [
+  {
+    title: "Adam Mitro's About Me Page",
+    details: ["A space to share my education, work experience, projects I've built, and how you can contact me.",
+      "This site is built with React and TailwindCSS, and is fully responsive for screens of any size, including phone screens.",
+      "The site supports both light and dark themes, which can be toggled using the switch in the side menu."
+    ]
+  },
+]
+
 const pokedexiOSFeatures: PortfolioFeature[] = [
   {
     title: "Pokemon List",
@@ -275,30 +289,26 @@ const pokedexAndroidFeatures: PortfolioFeature[] = [
 ];
 
 
-export const PortfolioProjects: PortfolioItemProps[] = [{
-  projectName: "Pokedex iOS",
-  features: pokedexiOSFeatures,
-  programmingLanguages: [
-    { name: "Swift/SwiftUI", icon: LanguageIcons.Swift.icon }
-  ]
-},
-{
-  projectName: "Pokedex Android",
-  features: pokedexAndroidFeatures,
-  programmingLanguages: [
-    { name: "Kotlin/Jetpack Compose", icon: LanguageIcons.Kotlin.icon }
-  ]
-}
+export const PortfolioProjects: PortfolioItemProps[] = [
+  {
+    projectName: "My Portfolio Site",
+    features: portfolioFeatures,
+    programmingLanguages: [
+      LanguageIcons.Typescript, LanguageIcons.HTML5, LanguageIcons.CSS3, FrameworkIcons.React, FrameworkIcons.TailwindCSS
+    ]
+  },
+  {
+    projectName: "Pokedex iOS",
+    features: pokedexiOSFeatures,
+    programmingLanguages: [
+      LanguageIcons.Swift, FrameworkIcons.SwiftUI
+    ]
+  },
+  {
+    projectName: "Pokedex Android",
+    features: pokedexAndroidFeatures,
+    programmingLanguages: [
+      LanguageIcons.Kotlin, FrameworkIcons.Jetpack
+    ]
+  }
 ]
-
-// export const techStack: ProgrammingLanguage[] = Object.values(LanguageIcons)
-//   .filter(({ category }) =>
-//     category === TechCategory.Language || category === TechCategory.Framework
-//   )
-//   .map(({ name, icon }) => ({ name, icon }));
-
-// export const techTools: ProgrammingLanguage[] = Object.values(LanguageIcons)
-//   .filter(({ category }) =>
-//     category === TechCategory.Tool
-//   )
-//   .map(({ name, icon }) => ({ name, icon }));
