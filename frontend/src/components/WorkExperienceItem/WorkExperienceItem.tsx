@@ -1,5 +1,7 @@
 import React from "react";
 import IconListItem from "../IconListItem/IconListItem";
+import { MediaItem } from "../../helpers/helpers";
+import CarouselItem from "../Carousel/CarouselItem";
 
 type ProgrammingLanguage = {
   name: string;
@@ -10,11 +12,7 @@ type WorkExperienceItemProps = {
   companyName?: string;
   jobDuties?: string[];
   programmingLanguages?: ProgrammingLanguage[];
-  media?: {
-    type: "image" | "video";
-    src: string;
-    alt?: string;
-  }[];
+  media?: MediaItem[];
 };
 
 export default function WorkExperienceItem({
@@ -53,26 +51,7 @@ export default function WorkExperienceItem({
         </div>
         {media && media.length > 0 && (<div className="mt-6 pb-8">
           <h3 className="font-semibold mb-4 mt-6">Work Samples:</h3>
-          <div className="w-full flex flex-wrap justify-evenly gap-6">
-            {media.map((mediaItem, mediaIndx) =>
-              mediaItem.type === "image" ? (
-                <img
-                  key={mediaIndx}
-                  src={mediaItem.src}
-                  alt={mediaItem.alt}
-                  loading="lazy"
-                  className="rounded-lg shadow-md h-auto max-h-[550px] object-contain"
-                />
-              ) : (
-                <video
-                  key={mediaIndx}
-                  src={mediaItem.src}
-                  controls
-                  className="rounded-lg shadow-md h-auto max-h-[400px] object-contain"
-                />
-              )
-            )}
-          </div>
+          <CarouselItem media={media} />
         </div>
         )}
       </div>

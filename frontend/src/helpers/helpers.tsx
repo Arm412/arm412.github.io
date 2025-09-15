@@ -188,14 +188,16 @@ export const workExperiences: WorkExperience[] = [
   }
 ];
 
+export type MediaItem = {
+  type: "image" | "video";
+  src: string;
+  alt?: string;
+}
+
 export type PortfolioFeature = {
   title: string;
   details: string[];
-  media?: {
-    type: "image" | "video";
-    src: string;
-    alt?: string;
-  }[];
+  media?: MediaItem[];
 };
 
 export type PortfolioItemProps = {
