@@ -11,6 +11,11 @@ const AboutMe: React.FC = () => {
   });
 
   const [showMenu, setShowMenu] = useState(false);
+  const [modalImage, setModalImage] = useState<string | null>(null);
+
+  const handleImageClick = (src: string) => {
+    setModalImage(src);
+  };
 
   useEffect(() => {
     localStorage.setItem("darkMode", String(darkMode));
@@ -149,6 +154,7 @@ const AboutMe: React.FC = () => {
                   jobDuties={experience.jobDuties}
                   programmingLanguages={experience.programmingLanguages}
                   media={experience.media || []}
+                  onImageClick={handleImageClick}
                 />
               </React.Fragment>
             ))}
@@ -218,6 +224,15 @@ const AboutMe: React.FC = () => {
             <a href="https://icons8.com" className="text-secondary hover:text-textMain"> https://icons8.com </a></p>
         </div>
       </div>
+      {/* Modal for image preview */}
+      {modalImage && (
+        <div className="fixed p-4 inset-0 z-50 flex items-center justify-center bg-black bg-opacity-80" onClick={() => setModalImage(null)}>
+          <div className="relative flex flex-col items-center max-w-full p-10" style={{ width: "fit-content" }} onClick={e => e.stopPropagation()}>
+            <button className="absolute top-2 right-2 text-white text-2xl font-bold z-10" onClick={() => setModalImage(null)}>&times;</button>
+            <img src={modalImage} alt="Preview" className="max-h-[80vh] w-auto rounded shadow-lg" />
+          </div>
+        </div>
+      )}
     </div>
   );
 }

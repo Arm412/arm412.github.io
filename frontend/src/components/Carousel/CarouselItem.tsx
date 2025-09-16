@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import { MediaItem, workExperiences } from "../../helpers/helpers";
 
 type CarouselItemProps = {
-  media?: MediaItem[]
+  media?: MediaItem[];
+  onImageClick?: (src: string) => void;
 };
 
 export default function CarouselItem({
-  media = []
+  media = [],
+  onImageClick
 }: CarouselItemProps) {
   const [imageIndex, setImageIndex] = useState(0);
 
@@ -33,7 +35,8 @@ export default function CarouselItem({
                   <img
                     src={mediaItem.src}
                     alt={mediaItem.alt || `Slide ${i + 1}`}
-                    className="w-full h-full object-contain"
+                    className="w-full h-full object-contain cursor-pointer"
+                    onClick={() => onImageClick && onImageClick(mediaItem.src)}
                   />
                 )}
               </div>

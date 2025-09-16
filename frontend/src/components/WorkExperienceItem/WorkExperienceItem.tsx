@@ -13,6 +13,7 @@ type WorkExperienceItemProps = {
   jobDuties?: string[];
   programmingLanguages?: ProgrammingLanguage[];
   media?: MediaItem[];
+  onImageClick?: (src: string) => void;
 };
 
 export default function WorkExperienceItem({
@@ -21,7 +22,8 @@ export default function WorkExperienceItem({
   programmingLanguages = [
     { name: "Typescript", icon: "/icons/typescript-96.png" }
   ],
-  media = []
+  media = [],
+  onImageClick
 }: WorkExperienceItemProps) {
   return (
     <>
@@ -51,7 +53,7 @@ export default function WorkExperienceItem({
         </div>
         {media && media.length > 0 && (<div className="mt-6 pb-8">
           <h3 className="font-semibold mb-4 mt-6">Work Samples:</h3>
-          <CarouselItem media={media} />
+          <CarouselItem media={media} onImageClick={onImageClick} />
         </div>
         )}
       </div>
