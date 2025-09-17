@@ -35,7 +35,7 @@ export default function CarouselItem({
                   <img
                     src={mediaItem.src}
                     alt={mediaItem.alt || `Slide ${i + 1}`}
-                    className="h-full object-contain cursor-pointer mx-auto shadow-xl"
+                    className="h-full w-auto object-contain rounded shadow-lg"
                     onClick={() => onImageClick && onImageClick(mediaItem.src)}
                   />
                 )}
