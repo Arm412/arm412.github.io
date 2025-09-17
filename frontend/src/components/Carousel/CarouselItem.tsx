@@ -30,12 +30,12 @@ export default function CarouselItem({
             style={{ transform: `translateX(-${imageIndex * 100}%)` }}
           >
             {media.map((mediaItem, i) => (
-              <div key={i} className="w-full flex-shrink-0 flex items-center justify-center">
+              <div key={i} className="w-full flex-shrink-0 flex items-center justify-center p-5">
                 {mediaItem.type === "image" && (
                   <img
                     src={mediaItem.src}
                     alt={mediaItem.alt || `Slide ${i + 1}`}
-                    className="w-full h-full object-contain cursor-pointer"
+                    className="h-full object-contain cursor-pointer mx-auto shadow-xl"
                     onClick={() => onImageClick && onImageClick(mediaItem.src)}
                   />
                 )}
