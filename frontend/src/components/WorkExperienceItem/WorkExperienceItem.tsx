@@ -1,5 +1,7 @@
 import React from "react";
 import IconListItem from "../IconListItem/IconListItem";
+import { MediaItem } from "../../helpers/helpers";
+import CarouselItem from "../Carousel/CarouselItem";
 
 type ProgrammingLanguage = {
   name: string;
@@ -10,6 +12,8 @@ type WorkExperienceItemProps = {
   companyName?: string;
   jobDuties?: string[];
   programmingLanguages?: ProgrammingLanguage[];
+  media?: MediaItem[];
+  onImageClick?: (src: string) => void;
 };
 
 export default function WorkExperienceItem({
@@ -17,7 +21,9 @@ export default function WorkExperienceItem({
   jobDuties = ["Temp Duty 1", "Temp Duty 2", "Temp Duty 3"],
   programmingLanguages = [
     { name: "Typescript", icon: "/icons/typescript-96.png" }
-  ]
+  ],
+  media = [],
+  onImageClick
 }: WorkExperienceItemProps) {
   return (
     <>
@@ -45,6 +51,11 @@ export default function WorkExperienceItem({
             ))}
           </div>
         </div>
+        {media && media.length > 0 && (<div className="mt-6 pb-8">
+          <h3 className="font-semibold mb-4 mt-6">Work Samples:</h3>
+          <CarouselItem media={media} onImageClick={onImageClick} />
+        </div>
+        )}
       </div>
     </>
   );

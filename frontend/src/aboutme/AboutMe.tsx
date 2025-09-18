@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import WorkExperienceItem from "../components/WorkExperienceItem/WorkExperienceItem";
-import { jobExperiences, AboutMeNavLocations, PortfolioProjects, LanguageIcons, ToolIcons, FrameworkIcons } from "../helpers/helpers";
+import { workExperiences, AboutMeNavLocations, PortfolioProjects, LanguageIcons, ToolIcons, FrameworkIcons } from "../helpers/helpers";
 import PortfolioItem from "../components/PortfolioItem/PortfolioItem";
 import SideMenu from "../components/SideMenu/SideMenu";
 import IconListItem from "../components/IconListItem/IconListItem";
@@ -11,6 +11,11 @@ const AboutMe: React.FC = () => {
   });
 
   const [showMenu, setShowMenu] = useState(false);
+  const [modalImage, setModalImage] = useState<string | null>(null);
+
+  const handleImageClick = (src: string) => {
+    setModalImage(src);
+  };
 
   useEffect(() => {
     localStorage.setItem("darkMode", String(darkMode));
@@ -141,13 +146,15 @@ const AboutMe: React.FC = () => {
         <section id="workExperience" className="flex flex-col md:flex-row items-center gap-8 py-6 w-full mx-auto mb-20">
           <div className="bg-cardBg p-6 border-y border-secondary shadow-lg overflow-hidden w-full">
             <h2 className="text-secondary text-3xl font-bold pb-6 font-mono">Work Experience</h2>
-            {jobExperiences.map((experience, index) => (
+            {workExperiences.map((experience, index) => (
               <React.Fragment key={index}>
                 {index > 0 && <hr className="border-secondary my-4" />}
                 <WorkExperienceItem
                   companyName={experience.companyName}
                   jobDuties={experience.jobDuties}
                   programmingLanguages={experience.programmingLanguages}
+                  media={experience.media || []}
+                  onImageClick={handleImageClick}
                 />
               </React.Fragment>
             ))}
@@ -217,6 +224,15 @@ const AboutMe: React.FC = () => {
             <a href="https://icons8.com" className="text-secondary hover:text-textMain"> https://icons8.com </a></p>
         </div>
       </div>
+      {/* Modal for image preview */}
+      {modalImage && (
+        <div className="fixed p-4 inset-0 z-50 flex items-center justify-center bg-black bg-opacity-80" onClick={() => setModalImage(null)}>
+          <div className="relative flex flex-col items-center max-w-full p-10" style={{ width: "fit-content" }} onClick={e => e.stopPropagation()}>
+            <button className="absolute top-2 right-2 text-white text-2xl font-bold z-10" onClick={() => setModalImage(null)}>&times;</button>
+            <img src={modalImage} alt="Preview" className="max-h-[80vh] w-auto rounded shadow-lg" />
+          </div>
+        </div>
+      )}
     </div>
   );
 }

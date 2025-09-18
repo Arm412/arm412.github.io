@@ -117,10 +117,15 @@ export type ProgrammingLanguage = {
   icon: string;
 };
 
-type JobExperience = {
+type WorkExperience = {
   companyName: string;
   jobDuties: string[];
   programmingLanguages?: ProgrammingLanguage[];
+  media?: {
+    type: "image" | "video";
+    src: string;
+    alt?: string;
+  }[];
 };
 
 export enum AboutMeNavLocations {
@@ -131,7 +136,7 @@ export enum AboutMeNavLocations {
   ContactInfo = "contactInfo"
 }
 
-export const jobExperiences: JobExperience[] = [
+export const workExperiences: WorkExperience[] = [
   {
     companyName: "Software Design Solutions Inc.",
     jobDuties: [
@@ -172,18 +177,27 @@ export const jobExperiences: JobExperience[] = [
       { name: ToolIcons.Kotest.name, icon: ToolIcons.Kotest.icon },
       { name: ToolIcons.QuickNimble.name, icon: ToolIcons.QuickNimble.icon },
       { name: ToolIcons.Postman.name, icon: ToolIcons.Postman.icon }
+    ],
+    media: [
+      { type: "image", src: "/MobileHome.png", alt: "MyUPMC iOS App Home Screen" },
+      { type: "image", src: "/MobileRecords.png", alt: "MyUPMC iOS Medical Records Tab" },
+      { type: "image", src: "/MobileEOCO.png", alt: "MyUPMC iOS Explore Other Care Options screen" },
+      { type: "image", src: "/WebHome.png", alt: "MyUPMC Web Home screen" },
+      { type: "image", src: "/WebEOCO.png", alt: "MyUPMC Web Explore Other Care Options screen" }
     ]
   }
 ];
 
+export type MediaItem = {
+  type: "image" | "video";
+  src: string;
+  alt?: string;
+}
+
 export type PortfolioFeature = {
   title: string;
   details: string[];
-  media?: {
-    type: "image" | "video";
-    src: string;
-    alt?: string;
-  }[];
+  media?: MediaItem[];
 };
 
 export type PortfolioItemProps = {
