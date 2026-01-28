@@ -59,12 +59,11 @@ const AboutMe: React.FC = () => {
         darkMode={darkMode}
         setDarkMode={setDarkMode} />
       <div className="w-full h-20 bg-primary border-b-2 border-b-secondary md:flex hidden shadow-lg fixed z-10">
-        {/* <button className="absolute flex top-0 left-0 items-center text-secondary hover:text-textMain w-50 h-20 pl-4" onClick={() => window.history.back()}>
-          <ArrowLeftIcon className="h-5 w-5 mr-2" />
-          <span>Back</span>
-        </button> */}
         <div className="flex w-full justify-center">
           <div className="flex items-center w-1/2 justify-evenly gap-5">
+            <button className="h-full flex-1 flex items-center justify-center text-secondary hover:text-textMain py-auto" onClick={() => goTo(AboutMeNavLocations.Skills)}>
+              <span>Skills</span>
+            </button>
             <button className="h-full flex-1 flex items-center justify-center text-secondary hover:text-textMain py-auto" onClick={() => goTo(AboutMeNavLocations.WorkExperience)}>
               <span>Work Experience</span>
             </button>
@@ -96,8 +95,8 @@ const AboutMe: React.FC = () => {
                 readOnly
               />
               <div className="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600 dark:peer-checked:bg-blue-600 bg-secondary" />
-              <span className="ms-3 text-sm font-mono">
-                {darkMode ? "Dark Mode" : "Light Mode"}
+              <span className="ms-3 text-sm font-mono max-w-[50px] text-center">
+                {darkMode ? "Dark Theme" : "Light Theme"}
               </span>
             </div>
           </div>

@@ -58,6 +58,12 @@ export default function SideMenu({
           <h4>About Me</h4>
         </button>
         <button className="w-full py-5 text-center text-[clamp(1rem,1.5vw,2.5rem)] border-t border-secondary cursor-pointer hover:text-primary hover:bg-secondary last:border-b" onClick={() => {
+          navigateFunction(AboutMeNavLocations.Skills);
+          setShowMenu(false);
+        }}>
+          <h4>Skills</h4>
+        </button>
+        <button className="w-full py-5 text-center text-[clamp(1rem,1.5vw,2.5rem)] border-t border-secondary cursor-pointer hover:text-primary hover:bg-secondary last:border-b" onClick={() => {
           navigateFunction(AboutMeNavLocations.WorkExperience);
           setShowMenu(false);
         }}>

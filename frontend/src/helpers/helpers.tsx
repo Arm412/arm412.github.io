@@ -133,7 +133,8 @@ export enum AboutMeNavLocations {
   WorkExperience = "workExperience",
   Portfolio = "portfolio",
   Education = "education",
-  ContactInfo = "contactInfo"
+  ContactInfo = "contactInfo",
+  Skills = "skills"
 }
 
 export const workExperiences: WorkExperience[] = [
