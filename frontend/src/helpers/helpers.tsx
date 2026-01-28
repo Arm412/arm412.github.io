@@ -86,7 +86,7 @@ export const ToolIcons = {
   },
   Kotest: {
     name: "Kotest",
-    icon: "/icons/kotest.png"
+    icon: "/icons/Kotest.png"
   },
   Postman: {
     name: "Postman",
