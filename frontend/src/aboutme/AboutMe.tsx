@@ -118,7 +118,7 @@ const AboutMe: React.FC = () => {
           </div>
         </section>
         {/* Skills Section */}
-        <section id="workExperience" className="flex flex-col md:flex-row items-center gap-8 py-6 w-full mx-auto mb-20">
+        <section id="skills" className="flex flex-col md:flex-row items-center gap-8 py-6 w-full mx-auto mb-20">
           <div className="bg-cardBg p-6 border-y border-secondary shadow-lg overflow-hidden w-full">
             <h2 className="text-secondary text-3xl font-bold pb-6 font-mono">Languages</h2>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
