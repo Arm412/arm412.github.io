@@ -4,12 +4,15 @@ import { workExperiences, AboutMeNavLocations, PortfolioProjects, LanguageIcons,
 import PortfolioItem from "../components/PortfolioItem/PortfolioItem";
 import SideMenu from "../components/SideMenu/SideMenu";
 import IconListItem from "../components/IconListItem/IconListItem";
+import { useWeather, WeatherType } from "../customHooks/useWeather";
 
 const AboutMe: React.FC = () => {
   const [darkMode, setDarkMode] = useState<boolean>(() => {
     return localStorage.getItem("darkMode") === "true";
   });
 
+  const { weather, loading, error } = useWeather();
+  const [currentWeatherType, setCurrentWeatherType] = useState<WeatherType>("sunny");
   const [showMenu, setShowMenu] = useState(false);
   const [modalImage, setModalImage] = useState<string | null>(null);
 
@@ -25,6 +28,11 @@ const AboutMe: React.FC = () => {
       sideMenu.classList.toggle("dark-theme", darkMode);
     }
   }, [darkMode]);
+
+  useEffect(() => {
+    if (weather) setCurrentWeatherType(weather.weatherType);
+    console.log("Current weather type: %s", weather?.weatherType);
+  }, [weather]);
 
   useEffect(() => {
     const queryParam = document.URL.split("?")[1];
@@ -103,19 +111,21 @@ const AboutMe: React.FC = () => {
         </label>
       </div>
       <div className="min-h-screen text-white py-5">
-        <section className="flex flex-col md:flex-row items-center gap-8 p-6 max-w-7xl mx-auto md:my-20">
-          <div className="w-fit px-[50px] md:px-0">
-            <img src="Adam.png" alt="Adam Mitro" className="rounded-full shadow-lg w-full h-auto object-cover border-4 border-secondary" />
-          </div>
+        <div>
+          <section className="flex flex-col md:flex-row items-center gap-8 p-6 max-w-7xl mx-auto md:my-20">
+            <div className="w-fit px-[50px] md:px-0">
+              <img src="Adam.png" alt="Adam Mitro" className="rounded-full shadow-lg w-full h-auto object-cover border-4 border-secondary" />
+            </div>
 
-          <div className="bg-cardBg p-6 rounded-lg border border-secondary shadow-lg w-fit">
-            <h2 className="text-secondary text-3xl font-bold mb-4 font-mono">About Me</h2>
-            <p className="text-lg text-textMain font-mono">
-              Hi, I'm Adam Mitro. I'm a full-stack engineer passionate about building projects that keep me on the cutting edge of programming languages and technologies.
-              I thrive on exploring new tools and frameworks to continuously sharpen my skills and stay ahead in the ever-evolving world of software development.
-            </p>
-          </div>
-        </section>
+            <div className="bg-cardBg p-6 rounded-lg border border-secondary shadow-lg w-fit">
+              <h2 className="text-secondary text-3xl font-bold mb-4 font-mono">About Me</h2>
+              <p className="text-lg text-textMain font-mono">
+                Hi, I'm Adam Mitro. I'm a full-stack engineer passionate about building projects that keep me on the cutting edge of programming languages and technologies.
+                I thrive on exploring new tools and frameworks to continuously sharpen my skills and stay ahead in the ever-evolving world of software development.
+              </p>
+            </div>
+          </section>
+        </div>
         {/* Skills Section */}
         <section id="skills" className="flex flex-col md:flex-row items-center gap-8 py-6 w-full mx-auto mb-20">
           <div className="bg-cardBg p-6 border-y border-secondary shadow-lg overflow-hidden w-full">
