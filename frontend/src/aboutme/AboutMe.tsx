@@ -111,7 +111,7 @@ const AboutMe: React.FC = () => {
           </div>
         </label>
       </div>
-      <div className="min-h-screen text-white pt-20">
+      <div className="min-h-screen text-white pt-0 md:pt-20">
         <div id="hero" className="relative w-full min-h-screen">
           <WeatherAnimation weatherType={currentWeatherType} />
           <div className="absolute inset-0 w-full h-full bg-black bg-opacity-20 z-5"></div>
@@ -125,7 +125,7 @@ const AboutMe: React.FC = () => {
               />
             </div>
 
-            <div className="bg-primary p-6 rounded-lg border border-secondary shadow-lg w-fit">
+            <div className="bg-primary p-6 rounded-lg border border-secondary shadow-lg w-fit opacity-85">
               <h2 className="text-secondary text-3xl font-bold mb-4 font-mono">About Me</h2>
               <p className="text-lg text-textMain font-mono">
                 Hi, I'm Adam Mitro. I'm a full-stack engineer passionate about building projects that keep me on the cutting edge of programming languages and technologies.
