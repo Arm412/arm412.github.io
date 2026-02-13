@@ -5,6 +5,7 @@ import PortfolioItem from "../components/PortfolioItem/PortfolioItem";
 import SideMenu from "../components/SideMenu/SideMenu";
 import IconListItem from "../components/IconListItem/IconListItem";
 import { useWeather, WeatherType } from "../customHooks/useWeather";
+import WeatherAnimation from "../components/WeatherAnimation/WeatherAnimation";
 
 const AboutMe: React.FC = () => {
   const [darkMode, setDarkMode] = useState<boolean>(() => {
@@ -66,7 +67,7 @@ const AboutMe: React.FC = () => {
         setShowMenu={setShowMenu}
         darkMode={darkMode}
         setDarkMode={setDarkMode} />
-      <div className="w-full h-20 bg-primary border-b-2 border-b-secondary md:flex hidden shadow-lg fixed z-10">
+      <div className="w-full h-20 bg-primary border-b-2 border-b-secondary md:flex hidden shadow-lg fixed z-50">
         <div className="flex w-full justify-center">
           <div className="flex items-center w-1/2 justify-evenly gap-5">
             <button className="h-full flex-1 flex items-center justify-center text-secondary hover:text-textMain py-auto" onClick={() => goTo(AboutMeNavLocations.Skills)}>
@@ -110,14 +111,21 @@ const AboutMe: React.FC = () => {
           </div>
         </label>
       </div>
-      <div className="min-h-screen text-white py-5">
-        <div>
-          <section className="flex flex-col md:flex-row items-center gap-8 p-6 max-w-7xl mx-auto md:my-20">
+      <div className="min-h-screen text-white pt-20">
+        <div id="hero" className="relative w-full min-h-screen">
+          <WeatherAnimation weatherType={currentWeatherType} />
+          <div className="absolute inset-0 w-full h-full bg-black bg-opacity-20 z-5"></div>
+
+          <section className="relative flex flex-col md:flex-row items-center gap-8 p-6 max-w-7xl mx-auto z-10">
             <div className="w-fit px-[50px] md:px-0">
-              <img src="Adam.png" alt="Adam Mitro" className="rounded-full shadow-lg w-full h-auto object-cover border-4 border-secondary" />
+              <img
+                src="Adam.png"
+                alt="Adam Mitro"
+                className="rounded-full shadow-lg w-full h-auto object-top border-4 border-secondary"
+              />
             </div>
 
-            <div className="bg-cardBg p-6 rounded-lg border border-secondary shadow-lg w-fit">
+            <div className="bg-primary p-6 rounded-lg border border-secondary shadow-lg w-fit">
               <h2 className="text-secondary text-3xl font-bold mb-4 font-mono">About Me</h2>
               <p className="text-lg text-textMain font-mono">
                 Hi, I'm Adam Mitro. I'm a full-stack engineer passionate about building projects that keep me on the cutting edge of programming languages and technologies.
@@ -126,8 +134,9 @@ const AboutMe: React.FC = () => {
             </div>
           </section>
         </div>
+
         {/* Skills Section */}
-        <section id="skills" className="flex flex-col md:flex-row items-center gap-8 py-6 w-full mx-auto mb-20">
+        <section id="skills" className="flex flex-col md:flex-row items-center gap-8 pb-6 w-full mx-auto mb-20">
           <div className="bg-cardBg p-6 border-y border-secondary shadow-lg overflow-hidden w-full">
             <h2 className="text-secondary text-3xl font-bold pb-6 font-mono">Languages</h2>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
