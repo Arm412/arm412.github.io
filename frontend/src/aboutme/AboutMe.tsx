@@ -112,7 +112,7 @@ const AboutMe: React.FC = () => {
         </label>
       </div>
       <div className="min-h-screen text-white pt-0 md:pt-20">
-        <div id="hero" className="relative w-full min-h-screen">
+        <div id="hero" className="relative w-full">
           <WeatherAnimation weatherType={currentWeatherType} />
           <div className="absolute inset-0 w-full h-full bg-black bg-opacity-20 z-5"></div>
 

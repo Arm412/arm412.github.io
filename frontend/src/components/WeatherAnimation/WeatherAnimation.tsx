@@ -1,58 +1,76 @@
-import { WeatherType } from "../../customHooks/useWeather";
+import { WeatherType, isNight } from "../../customHooks/useWeather";
 
 type WeatherAnimationProps = {
   weatherType: WeatherType;
 };
 
 function WeatherAnimation({ weatherType }: WeatherAnimationProps) {
-  let currentAnimation = "PittsburghDayAnimation.gif";
+  let cloudyAnimation: string | null = "Clouds.gif";
+  let currentCityAnimation = isNight ? "nightSkyTransparent.gif" : "daySkyTransparent.gif";
   let precipOverlay: string | null = null;
 
   switch (weatherType) {
-    case "sunny":
+    case "sunny": // No overlay needed for sunny weather
       console.log("WeatherAnimation: sunny");
-      currentAnimation = "PittsburghDayAnimation.gif";
+      cloudyAnimation = null;
+      precipOverlay = null;
       break;
 
-    case "cloudy":
+    case "cloudy": // Use the cloudy animation for cloudy weather
       console.log("WeatherAnimation: cloudy");
-      currentAnimation = "PittsburghCloudyAnimation.gif";
+      cloudyAnimation = "Clouds.gif";
+      precipOverlay = null;
       break;
-    // 
-    case "rain":
+
+    case "rain": // Use the cloudy animation with a rain overlay for rainy weather
       console.log("WeatherAnimation: rain");
-      currentAnimation = "PittsburghCloudyAnimation.gif";
+      currentCityAnimation = "PittsburghCloudyAnimation.gif";
+      cloudyAnimation = "Clouds.gif";
       precipOverlay = "RainOverlay.gif";
       break;
 
-    case "snow":
+    case "snow": // Use the cloudy animation with a snow overlay for snowy weather
       console.log("WeatherAnimation: snow");
-      currentAnimation = "PittsburghCloudyAnimation.gif";
+      currentCityAnimation = "PittsburghCloudyAnimation.gif";
+      cloudyAnimation = "Clouds.gif";
       precipOverlay = "SnowOverlay.gif";
       break;
 
-    case "storm":
+    case "storm": // Use the cloudy animation with a storm overlay for stormy weather
       console.log("WeatherAnimation: storm");
-      currentAnimation = "PittsburghStormAnimation.gif";
+      currentCityAnimation = "PittsburghStormAnimation.gif";
+      cloudyAnimation = "Clouds.gif";
       precipOverlay = "RainOverlay.gif";
       break;
   }
 
   return (
     <>
-      {precipOverlay && (
+      {/* Clouds behind city */}
+      {cloudyAnimation && (
         <img
-          src={precipOverlay}
-          alt="Precipitation Overlay"
+          src={cloudyAnimation}
+          alt="Clouds Overlay"
           className="absolute inset-0 w-full h-full object-cover object-top brightness-75 z-0 opacity-80"
         />
       )}
 
+      {/* City in front */}
       <img
-        src={currentAnimation}
+        src={currentCityAnimation}
         alt="City Animation"
-        className="absolute inset-0 w-full h-full object-cover object-top brightness-75 z-0 opacity-80"
+        className="absolute inset-0 w-full h-full object-cover object-top brightness-75 z-10 opacity-100"
       />
+
+      {/* Precipitation on top */}
+      {precipOverlay && (
+        <img
+          src={precipOverlay}
+          alt="Precipitation Overlay"
+          className="absolute inset-0 w-full h-full object-cover object-top brightness-75 z-20 opacity-80"
+        />
+      )}
+
     </>
   )
 }

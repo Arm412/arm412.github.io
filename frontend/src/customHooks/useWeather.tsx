@@ -18,6 +18,11 @@ interface WeatherResponse {
   current_weather: CurrentWeather;
 }
 
+export const isNight = (() => {
+  const hour = new Date().getHours();
+  return hour < 6 || hour >= 18;
+})();
+
 export function useWeather(): { weather: NormalizedWeather | null; loading: boolean; error: string | null } {
   const [weather, setWeather] = useState<NormalizedWeather | null>(null);
   const [loading, setLoading] = useState(true);
