@@ -114,9 +114,8 @@ const AboutMe: React.FC = () => {
       <div className="min-h-screen text-white pt-0 md:pt-20">
         <div id="hero" className="relative w-full">
           <WeatherAnimation weatherType={currentWeatherType} />
-          <div className="absolute inset-0 w-full h-full bg-black bg-opacity-20 z-5"></div>
 
-          <section className="relative flex flex-col md:flex-row items-center gap-8 p-6 max-w-7xl mx-auto z-10">
+          <section className="relative flex flex-col md:flex-row items-center gap-8 p-6 max-w-7xl mx-auto z-40">
             <div className="w-fit px-[50px] md:px-0">
               <img
                 src="Adam.png"
