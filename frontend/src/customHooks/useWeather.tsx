@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 
 export type WeatherType = "sunny" | "cloudy" | "rain" | "snow" | "storm";
 
+export type PrecipitationType = "none" | "rain" | "snow";
+
 interface CurrentWeather {
   temperature: number;
   weathercode: number;
@@ -12,6 +14,8 @@ interface NormalizedWeather {
   weatherType: WeatherType;
   temperature: number;
   isNight: boolean;
+  precipitationType: PrecipitationType;
+  isCloudy: boolean;
 }
 
 interface WeatherResponse {
@@ -55,7 +59,9 @@ export function useWeather(): { weather: NormalizedWeather | null; loading: bool
         setWeather({
           weatherType,
           temperature: current.temperature,
-          isNight
+          isNight,
+          precipitationType: (weatherType === "rain" || weatherType === "storm") ? "rain" : weatherType === "snow" ? "snow" : "none",
+          isCloudy: weatherType === "cloudy" || weatherType === "rain" || weatherType === "snow" || weatherType === "storm"
         });
       } catch (err: unknown) {
         if (err instanceof Error) setError(err.message);

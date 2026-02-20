@@ -1,15 +1,27 @@
-import { WeatherType, isNight } from "../../customHooks/useWeather";
+import { useState, useEffect } from "react";
+import { PrecipitationType, WeatherType, useWeather } from "../../customHooks/useWeather";
 
-type WeatherAnimationProps = {
+interface WeatherAnimationProps {
   weatherType: WeatherType;
-};
+  precipitationType: PrecipitationType;
+  showClouds: boolean;
+  isNight: boolean;
+}
 
-function WeatherAnimation({ weatherType }: WeatherAnimationProps) {
+function WeatherAnimation({ weatherType, showClouds, precipitationType, isNight }: WeatherAnimationProps) {
+  const [currentWeatherType, setCurrentWeatherType] = useState<WeatherType>("sunny");
+  const { weather, loading, error } = useWeather();
+
   let cloudyAnimation: string | null = "Clouds.webm";
   let currentCityAnimation = isNight ? "NightSkyTransparent.webm" : "DaySkyTransparent.webm";
   let precipOverlay: string | null = "SnowOverlay.webm";
 
-  switch (weatherType) {
+  useEffect(() => {
+    if (weather) setCurrentWeatherType(weather.weatherType);
+    console.log("Current weather type: %s", weather?.weatherType);
+  }, [weather]);
+
+  switch (currentWeatherType) {
     case "sunny": // No overlay needed for sunny weather
       console.log("WeatherAnimation: sunny");
       cloudyAnimation = null;
@@ -43,7 +55,7 @@ function WeatherAnimation({ weatherType }: WeatherAnimationProps) {
 
   return (
     <>
-      <div className={`w-full h-full absolute inset-0 z-5 ${isNight ? "bg-slate-900" : "bg-sky-300"}`}></div>
+      <div className={`w-full h-full absolute inset-0 z-5 pointer-events-none ${isNight ? "bg-slate-900" : "bg-sky-300"}`}></div>
 
       {/* Clouds behind city */}
       {cloudyAnimation && (
@@ -53,7 +65,7 @@ function WeatherAnimation({ weatherType }: WeatherAnimationProps) {
           loop
           muted
           playsInline
-          className="absolute inset-0 w-full h-full object-cover"
+          className={"absolute inset-0 w-full h-full object-cover object-top pointer-events-none" + (isNight ? " opacity-20" : "")}
         />
       )}
 
@@ -64,7 +76,7 @@ function WeatherAnimation({ weatherType }: WeatherAnimationProps) {
         loop
         muted
         playsInline
-        className="absolute inset-0 w-full h-full object-cover"
+        className="absolute inset-0 w-full h-full object-cover object-top pointer-events-none"
       />
 
       {/* Precipitation on top */}
@@ -75,10 +87,9 @@ function WeatherAnimation({ weatherType }: WeatherAnimationProps) {
           loop
           muted
           playsInline
-          className="absolute inset-0 w-full h-full object-cover"
+          className="absolute inset-0 w-full h-full object-cover object-top pointer-events-none"
         />
       )}
-
     </>
   )
 }

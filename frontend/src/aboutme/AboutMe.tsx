@@ -4,16 +4,30 @@ import { workExperiences, AboutMeNavLocations, PortfolioProjects, LanguageIcons,
 import PortfolioItem from "../components/PortfolioItem/PortfolioItem";
 import SideMenu from "../components/SideMenu/SideMenu";
 import IconListItem from "../components/IconListItem/IconListItem";
-import { useWeather, WeatherType } from "../customHooks/useWeather";
 import WeatherAnimation from "../components/WeatherAnimation/WeatherAnimation";
+import { PrecipitationType, WeatherType } from "../customHooks/useWeather";
 
-const AboutMe: React.FC = () => {
+interface AboutMeProps {
+  weatherType: WeatherType;
+  precipitationType: PrecipitationType;
+  showClouds: boolean;
+  isNight: boolean;
+  temp: number | null;
+  openPlayground: () => void;
+}
+
+function AboutMe({
+  weatherType,
+  precipitationType,
+  showClouds,
+  isNight,
+  temp,
+  openPlayground
+}: AboutMeProps) {
   const [darkMode, setDarkMode] = useState<boolean>(() => {
     return localStorage.getItem("darkMode") === "true";
   });
 
-  const { weather, loading, error } = useWeather();
-  const [currentWeatherType, setCurrentWeatherType] = useState<WeatherType>("sunny");
   const [showMenu, setShowMenu] = useState(false);
   const [modalImage, setModalImage] = useState<string | null>(null);
 
@@ -29,11 +43,6 @@ const AboutMe: React.FC = () => {
       sideMenu.classList.toggle("dark-theme", darkMode);
     }
   }, [darkMode]);
-
-  useEffect(() => {
-    if (weather) setCurrentWeatherType(weather.weatherType);
-    console.log("Current weather type: %s", weather?.weatherType);
-  }, [weather]);
 
   useEffect(() => {
     const queryParam = document.URL.split("?")[1];
@@ -53,6 +62,11 @@ const AboutMe: React.FC = () => {
         behavior: "smooth"
       });
     }
+  }
+
+  function titleCaseWord(word: string) {
+    if (!word) return word;
+    return word[0].toUpperCase() + word.substr(1).toLowerCase();
   }
 
   return (
@@ -113,7 +127,7 @@ const AboutMe: React.FC = () => {
       </div>
       <div className="min-h-screen text-white pt-0 md:pt-20">
         <div id="hero" className="relative w-full">
-          <WeatherAnimation weatherType={currentWeatherType} />
+          <WeatherAnimation weatherType={weatherType} showClouds={showClouds} precipitationType={precipitationType} isNight={isNight} />
 
           <section className="relative flex flex-col md:flex-row items-center gap-8 p-6 max-w-7xl mx-auto z-40">
             <div className="w-fit px-[50px] md:px-0">
@@ -132,6 +146,12 @@ const AboutMe: React.FC = () => {
               </p>
             </div>
           </section>
+          <div className="absolute top-0 right-0 z-40 bg-black bg-opacity-50 text-white px-4 py-2 rounded mr-2 mt-2" onClick={openPlayground}>
+            <p className="text-sm font-mono">Pittsburgh, Pennsylvania</p>
+            <p className="text-sm font-mono">Temp: {temp + "°F" || "N/A"}</p>
+            <p className="text-sm font-mono">Weather: {titleCaseWord(weatherType)}</p>
+            <button className="text-sm font-mono mt-4 border border-white p-1 text-white hover:border-yellow-400 hover:text-yellow-400">Open Animation Playground</button>
+          </div>
         </div>
 
         {/* Skills Section */}
@@ -235,7 +255,7 @@ const AboutMe: React.FC = () => {
             </p>
           </div>
         </section>
-        <div className="flex flex-col md:flex-column items-center gap-8 p-6 max-w-7xl mx-auto mb-20">
+        <div className="flex flex-col md:flex-column items-center gap-8 p-6 max-w-7xl mx-auto pb-20">
           <h2 className="text-secondary text-3xl font-bold mb-4 font-mono">Credit</h2>
           <p className="text-textMain">Icons by Icons8 —
             <a href="https://icons8.com" className="text-secondary hover:text-textMain"> https://icons8.com </a></p>
