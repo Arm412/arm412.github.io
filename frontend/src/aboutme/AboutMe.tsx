@@ -126,8 +126,8 @@ function AboutMe({
         </label>
       </div>
       <div className="min-h-screen text-white pt-0 md:pt-20">
-        <div id="hero" className="relative w-full">
-          <WeatherAnimation weatherType={weatherType} showClouds={showClouds} precipitationType={precipitationType} isNight={isNight} />
+        <div id="hero" className={`relative w-full min-h-screen ${isNight ? "bg-slate-900" : "bg-sky-300"}`}>
+          <WeatherAnimation showClouds={showClouds} precipitationType={precipitationType} isNight={isNight} isPlayground={false} />
 
           <section className="relative flex flex-col md:flex-row items-center gap-8 p-6 max-w-7xl mx-auto z-40">
             <div className="w-fit px-[50px] md:px-0">

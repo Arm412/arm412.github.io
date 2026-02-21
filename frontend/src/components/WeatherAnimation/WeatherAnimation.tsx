@@ -2,61 +2,31 @@ import { useState, useEffect } from "react";
 import { PrecipitationType, WeatherType, useWeather } from "../../customHooks/useWeather";
 
 interface WeatherAnimationProps {
-  weatherType: WeatherType;
   precipitationType: PrecipitationType;
   showClouds: boolean;
   isNight: boolean;
+  isPlayground?: boolean;
 }
 
-function WeatherAnimation({ weatherType, showClouds, precipitationType, isNight }: WeatherAnimationProps) {
-  const [currentWeatherType, setCurrentWeatherType] = useState<WeatherType>("sunny");
-  const { weather, loading, error } = useWeather();
-
-  let cloudyAnimation: string | null = "Clouds.webm";
+function WeatherAnimation({ showClouds, precipitationType, isNight, isPlayground }: WeatherAnimationProps) {
+  let cloudyAnimation: string | null = showClouds ? "Clouds.webm" : null;
   let currentCityAnimation = isNight ? "NightSkyTransparent.webm" : "DaySkyTransparent.webm";
-  let precipOverlay: string | null = "SnowOverlay.webm";
+  let precipOverlay: string | null = null;
 
-  useEffect(() => {
-    if (weather) setCurrentWeatherType(weather.weatherType);
-    console.log("Current weather type: %s", weather?.weatherType);
-  }, [weather]);
-
-  switch (currentWeatherType) {
-    case "sunny": // No overlay needed for sunny weather
-      console.log("WeatherAnimation: sunny");
-      cloudyAnimation = null;
-      precipOverlay = null;
-      break;
-
-    case "cloudy": // Use the cloudy animation for cloudy weather
-      console.log("WeatherAnimation: cloudy");
-      cloudyAnimation = "Clouds.webm";
-      precipOverlay = null;
-      break;
-
-    case "rain": // Use the cloudy animation with a rain overlay for rainy weather
-      console.log("WeatherAnimation: rain");
-      cloudyAnimation = "Clouds.webm";
+  switch (precipitationType) {
+    case "rain":
       precipOverlay = "RainOverlay.webm";
       break;
-
-    case "snow": // Use the cloudy animation with a snow overlay for snowy weather
-      console.log("WeatherAnimation: snow");
-      cloudyAnimation = "Clouds.webm";
+    case "snow":
       precipOverlay = "SnowOverlay.webm";
       break;
-
-    case "storm": // Use the cloudy animation with a storm overlay for stormy weather
-      console.log("WeatherAnimation: storm");
-      cloudyAnimation = "Clouds.webm";
-      precipOverlay = "RainOverlay.webm";
+    case "none":
+      precipOverlay = null;
       break;
   }
 
   return (
     <>
-      <div className={`w-full h-full absolute inset-0 z-5 pointer-events-none ${isNight ? "bg-slate-900" : "bg-sky-300"}`}></div>
-
       {/* Clouds behind city */}
       {cloudyAnimation && (
         <video
@@ -65,7 +35,7 @@ function WeatherAnimation({ weatherType, showClouds, precipitationType, isNight 
           loop
           muted
           playsInline
-          className={"absolute inset-0 w-full h-full object-cover object-top pointer-events-none" + (isNight ? " opacity-20" : "")}
+          className={"absolute inset-0 w-full h-full pointer-events-none" + (isNight ? " opacity-20 " : "") + (isPlayground ? " object-contain" : " object-cover object-top")}
         />
       )}
 
@@ -76,7 +46,7 @@ function WeatherAnimation({ weatherType, showClouds, precipitationType, isNight 
         loop
         muted
         playsInline
-        className="absolute inset-0 w-full h-full object-cover object-top pointer-events-none"
+        className={"absolute inset-0 w-full h-full pointer-events-none" + (isPlayground ? " object-contain" : " object-cover object-top")}
       />
 
       {/* Precipitation on top */}
@@ -87,7 +57,7 @@ function WeatherAnimation({ weatherType, showClouds, precipitationType, isNight 
           loop
           muted
           playsInline
-          className="absolute inset-0 w-full h-full object-cover object-top pointer-events-none"
+          className={"absolute inset-0 w-full h-full pointer-events-none" + (isPlayground ? " object-contain" : " object-cover object-top")}
         />
       )}
     </>

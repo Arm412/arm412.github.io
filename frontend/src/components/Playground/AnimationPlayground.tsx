@@ -11,21 +11,27 @@ interface AnimationPlaygroundProps {
 }
 
 function AnimationPlayground({
-  weatherType,
   precipitationType,
   showClouds,
   isNight,
   closePlayground
 }: AnimationPlaygroundProps) {
-  const [currentWeatherType, setCurrentWeatherType] = useState<WeatherType>(weatherType as WeatherType);
   const [showCloudsState, setShowClouds] = useState(showClouds);
   const [currentPrecipitation, setCurrentPrecipitation] = useState<PrecipitationType>(precipitationType as PrecipitationType);
   const [isNightState, setIsNight] = useState(isNight);
 
   return (
-    <div>
-      <WeatherAnimation weatherType={currentWeatherType} showClouds={showCloudsState} precipitationType={currentPrecipitation} isNight={isNight} />
-      <button onClick={closePlayground} className="absolute top-4 right-4 z-50 bg-red-500 text-white px-4 py-2 rounded">Close</button>
+    <div className="fixed inset-0 bg-black/60 flex items-center justify-center">
+      <div className="relative w-[90vw] max-w-5xl aspect-[16/10] bg-black overflow-hidden">
+        <WeatherAnimation showClouds={showCloudsState} precipitationType={currentPrecipitation} isNight={isNightState} isPlayground={true} />
+
+        <button
+          onClick={closePlayground}
+          className="absolute top-4 right-4 z-50 bg-red-500 text-white px-4 py-2 rounded"
+        >
+          Close
+        </button>
+      </div>
     </div>
   )
 }
