@@ -71,7 +71,7 @@ function AboutMe({
 
   return (
     <div id="aboutMe" className="font-mono bg-primary">
-      <div className="fixed top-2 right-2 w-[50px] h-[50px] z-30 flex flex-col justify-center items-center gap-1 cursor-pointer md:hidden bg-primary" onClick={() => setShowMenu(true)}>
+      <div className="fixed top-2 right-2 w-[50px] h-[50px] z-50 flex flex-col justify-center items-center gap-1 cursor-pointer md:hidden bg-primary" onClick={() => setShowMenu(true)}>
         <span className="block w-8 h-1 bg-textMain rounded"></span>
         <span className="block w-8 h-1 bg-textMain rounded"></span>
         <span className="block w-8 h-1 bg-textMain rounded"></span>
@@ -126,7 +126,7 @@ function AboutMe({
         </label>
       </div>
       <div className="min-h-screen text-white pt-0 md:pt-20">
-        <div id="hero" className={`relative w-full ${isNight ? "bg-slate-900" : "bg-sky-300"}`}>
+        <div id="hero" className={`relative w-full md:py-32 ${isNight ? "bg-slate-900" : "bg-sky-300"}`}>
           <WeatherAnimation showClouds={showClouds} precipitationType={precipitationType} isNight={isNight} isPlayground={false} />
 
           <section className="relative flex flex-col md:flex-row items-center gap-8 p-6 max-w-7xl mx-auto z-40">
@@ -138,7 +138,7 @@ function AboutMe({
               />
             </div>
 
-            <div className="bg-primary p-6 rounded-lg border border-secondary shadow-lg w-fit opacity-85">
+            <div className="bg-primary p-6 rounded-lg border border-secondary shadow-lg w-fit opacity-95">
               <h2 className="text-secondary text-3xl font-bold mb-4 font-mono">About Me</h2>
               <p className="text-lg text-textMain font-mono">
                 Hi, I'm Adam Mitro. I'm a full-stack engineer passionate about building projects that keep me on the cutting edge of programming languages and technologies.
@@ -146,11 +146,11 @@ function AboutMe({
               </p>
             </div>
           </section>
-          <div className="absolute top-0 right-0 z-40 bg-black bg-opacity-50 text-white px-4 py-2 rounded mr-2 mt-2" onClick={openPlayground}>
+          <div className="absolute top-0 right-0 z-40 bg-black bg-opacity-50 text-white px-4 py-2 rounded mr-2 mt-2 md:block hidden">
             <p className="text-sm font-mono">Pittsburgh, Pennsylvania</p>
-            <p className="text-sm font-mono">Temp: {temp + "°F" || "N/A"}</p>
+            <p className="text-sm font-mono">Temp: {temp + "°C" || "N/A"}</p>
             <p className="text-sm font-mono">Weather: {titleCaseWord(weatherType)}</p>
-            <button className="text-sm font-mono mt-4 border border-white p-1 text-white hover:border-yellow-400 hover:text-yellow-400">Open Animation Playground</button>
+            <button className="text-sm font-mono mt-4 border border-white p-1 text-white hover:border-yellow-400 hover:text-yellow-400" onClick={openPlayground}>Open Animation Playground</button>
           </div>
         </div>
 
