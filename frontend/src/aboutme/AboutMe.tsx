@@ -52,6 +52,17 @@ function AboutMe({
         goTo(section as AboutMeNavLocations);
       }
     }
+
+    const handleResize = () => {
+      if (window.innerWidth >= 768) {
+        setShowMenu(false);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
 
   function goTo(location: AboutMeNavLocations) {
