@@ -21,8 +21,8 @@ function AnimationPlayground({
   const [isNightState, setIsNight] = useState(isNight);
 
   return (
-    <div className="fixed inset-0 z-50 bg-black flex items-center justify-center">
-      <div className="w-[90vw] max-w-5xl flex flex-col gap-4">
+    <div className="fixed inset-0 z-50 bg-black flex items-center justify-center" onClick={closePlayground}>
+      <div className="w-[90vw] max-w-5xl flex flex-col gap-4" onClick={(e) => e.stopPropagation()}>
 
         <div className={"relative aspect-[16/10] overflow-hidden rounded-xl " + (isNightState ? "bg-gray-900" : "bg-blue-300")}>
           <WeatherAnimation
