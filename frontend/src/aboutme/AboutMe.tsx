@@ -4,8 +4,26 @@ import { workExperiences, AboutMeNavLocations, PortfolioProjects, LanguageIcons,
 import PortfolioItem from "../components/PortfolioItem/PortfolioItem";
 import SideMenu from "../components/SideMenu/SideMenu";
 import IconListItem from "../components/IconListItem/IconListItem";
+import WeatherAnimation from "../components/WeatherAnimation/WeatherAnimation";
+import { PrecipitationType, WeatherType } from "../customHooks/useWeather";
 
-const AboutMe: React.FC = () => {
+interface AboutMeProps {
+  weatherType: WeatherType;
+  precipitationType: PrecipitationType;
+  showClouds: boolean;
+  isNight: boolean;
+  temp: number | null;
+  openPlayground: () => void;
+}
+
+function AboutMe({
+  weatherType,
+  precipitationType,
+  showClouds,
+  isNight,
+  temp,
+  openPlayground
+}: AboutMeProps) {
   const [darkMode, setDarkMode] = useState<boolean>(() => {
     return localStorage.getItem("darkMode") === "true";
   });
@@ -34,6 +52,17 @@ const AboutMe: React.FC = () => {
         goTo(section as AboutMeNavLocations);
       }
     }
+
+    const handleResize = () => {
+      if (window.innerWidth >= 768) {
+        setShowMenu(false);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
 
   function goTo(location: AboutMeNavLocations) {
@@ -46,9 +75,14 @@ const AboutMe: React.FC = () => {
     }
   }
 
+  function titleCaseWord(word: string) {
+    if (!word) return word;
+    return word[0].toUpperCase() + word.substr(1).toLowerCase();
+  }
+
   return (
     <div id="aboutMe" className="font-mono bg-primary">
-      <div className="fixed top-2 right-2 w-[50px] h-[50px] z-30 flex flex-col justify-center items-center gap-1 cursor-pointer md:hidden bg-primary" onClick={() => setShowMenu(true)}>
+      <div className="fixed top-2 right-2 w-[50px] h-[50px] z-50 flex flex-col justify-center items-center gap-1 cursor-pointer md:hidden bg-primary" onClick={() => setShowMenu(true)}>
         <span className="block w-8 h-1 bg-textMain rounded"></span>
         <span className="block w-8 h-1 bg-textMain rounded"></span>
         <span className="block w-8 h-1 bg-textMain rounded"></span>
@@ -58,7 +92,7 @@ const AboutMe: React.FC = () => {
         setShowMenu={setShowMenu}
         darkMode={darkMode}
         setDarkMode={setDarkMode} />
-      <div className="w-full h-20 bg-primary border-b-2 border-b-secondary md:flex hidden shadow-lg fixed z-10">
+      <div className="w-full h-20 bg-primary border-b-2 border-b-secondary md:flex hidden shadow-lg fixed z-50">
         <div className="flex w-full justify-center">
           <div className="flex items-center w-1/2 justify-evenly gap-5">
             <button className="h-full flex-1 flex items-center justify-center text-secondary hover:text-textMain py-auto" onClick={() => goTo(AboutMeNavLocations.Skills)}>
@@ -102,22 +136,37 @@ const AboutMe: React.FC = () => {
           </div>
         </label>
       </div>
-      <div className="min-h-screen text-white py-5">
-        <section className="flex flex-col md:flex-row items-center gap-8 p-6 max-w-7xl mx-auto md:my-20">
-          <div className="w-fit px-[50px] md:px-0">
-            <img src="Adam.png" alt="Adam Mitro" className="rounded-full shadow-lg w-full h-auto object-cover border-4 border-secondary" />
-          </div>
+      <div className="min-h-screen text-white pt-0 md:pt-20">
+        <div id="hero" className={`relative w-full md:py-32 ${isNight ? "bg-slate-900" : "bg-sky-300"}`}>
+          <WeatherAnimation showClouds={showClouds} precipitationType={precipitationType} isNight={isNight} isPlayground={false} />
 
-          <div className="bg-cardBg p-6 rounded-lg border border-secondary shadow-lg w-fit">
-            <h2 className="text-secondary text-3xl font-bold mb-4 font-mono">About Me</h2>
-            <p className="text-lg text-textMain font-mono">
-              Hi, I'm Adam Mitro. I'm a full-stack engineer passionate about building projects that keep me on the cutting edge of programming languages and technologies.
-              I thrive on exploring new tools and frameworks to continuously sharpen my skills and stay ahead in the ever-evolving world of software development.
-            </p>
+          <section className="relative flex flex-col md:flex-row items-center gap-8 p-6 max-w-7xl mx-auto z-40">
+            <div className="w-fit px-[50px] md:px-0">
+              <img
+                src="Adam.png"
+                alt="Adam Mitro"
+                className="rounded-full shadow-lg w-full h-auto object-top border-4 border-secondary"
+              />
+            </div>
+
+            <div className="bg-primary p-6 rounded-lg border border-secondary shadow-lg w-fit opacity-95">
+              <h2 className="text-secondary text-3xl font-bold mb-4 font-mono">About Me</h2>
+              <p className="text-lg text-textMain font-mono">
+                Hi, I'm Adam Mitro. I'm a full-stack engineer passionate about building projects that keep me on the cutting edge of programming languages and technologies.
+                I thrive on exploring new tools and frameworks to continuously sharpen my skills and stay ahead in the ever-evolving world of software development.
+              </p>
+            </div>
+          </section>
+          <div className="absolute top-0 right-0 z-40 bg-black bg-opacity-50 text-white px-4 py-2 rounded mr-2 mt-2 md:block hidden">
+            <p className="text-sm font-mono">Pittsburgh, Pennsylvania</p>
+            <p className="text-sm font-mono">Temp: {temp + "°C" || "N/A"}</p>
+            <p className="text-sm font-mono">Weather: {titleCaseWord(weatherType)}</p>
+            <button className="text-sm font-mono mt-4 border border-white p-1 text-white hover:border-yellow-400 hover:text-yellow-400" onClick={openPlayground}>Open Animation Playground</button>
           </div>
-        </section>
+        </div>
+
         {/* Skills Section */}
-        <section id="skills" className="flex flex-col md:flex-row items-center gap-8 py-6 w-full mx-auto mb-20">
+        <section id="skills" className="flex flex-col md:flex-row items-center gap-8 pb-6 w-full mx-auto mb-20">
           <div className="bg-cardBg p-6 border-y border-secondary shadow-lg overflow-hidden w-full">
             <h2 className="text-secondary text-3xl font-bold pb-6 font-mono">Languages</h2>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
@@ -217,7 +266,7 @@ const AboutMe: React.FC = () => {
             </p>
           </div>
         </section>
-        <div className="flex flex-col md:flex-column items-center gap-8 p-6 max-w-7xl mx-auto mb-20">
+        <div className="flex flex-col md:flex-column items-center gap-8 p-6 max-w-7xl mx-auto pb-20">
           <h2 className="text-secondary text-3xl font-bold mb-4 font-mono">Credit</h2>
           <p className="text-textMain">Icons by Icons8 —
             <a href="https://icons8.com" className="text-secondary hover:text-textMain"> https://icons8.com </a></p>
