@@ -16,6 +16,14 @@ interface AboutMeProps {
   openPlayground: () => void;
 }
 
+const toFahrenheit = (temp: string | number): number | null => {
+  const parsed = typeof temp === "number" ? temp : parseFloat(temp);
+  if (isNaN(parsed)) return null;
+
+  const fahrenheit = (parsed * 9) / 5 + 32;
+  return Math.round(fahrenheit * 100) / 100;
+};
+
 function AboutMe({
   weatherType,
   precipitationType,
@@ -75,9 +83,9 @@ function AboutMe({
     }
   }
 
-  function titleCaseWord(word: string) {
+  function titleCaseWord(word: string): string {
     if (!word) return word;
-    return word[0].toUpperCase() + word.substr(1).toLowerCase();
+    return word[0].toUpperCase() + word.slice(1).toLowerCase();
   }
 
   return (
@@ -159,8 +167,12 @@ function AboutMe({
           </section>
           <div className="absolute top-0 right-0 z-40 bg-black bg-opacity-50 text-white px-4 py-2 rounded mr-2 mt-2 md:block hidden">
             <p className="text-sm font-mono">Pittsburgh, Pennsylvania</p>
-            <p className="text-sm font-mono">Temp: {temp + "°C" || "N/A"}</p>
-            <p className="text-sm font-mono">Weather: {titleCaseWord(weatherType)}</p>
+            {temp !== null && (
+              <>
+                <p className="text-sm font-mono">Temp: {toFahrenheit(temp) + "°F" || "N/A"}</p>
+                <p className="text-sm font-mono">Weather: {titleCaseWord(weatherType)}</p>
+              </>
+            )}
             <button className="text-sm font-mono mt-4 border border-white p-1 text-white hover:border-yellow-400 hover:text-yellow-400" onClick={openPlayground}>Open Animation Playground</button>
           </div>
         </div>
