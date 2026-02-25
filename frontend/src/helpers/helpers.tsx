@@ -106,6 +106,10 @@ export const ExternalIcons = {
   LinkedIn: {
     name: "LinkedIn",
     icon: "/icons/linkedin.png"
+  },
+  Aseprite: {
+    name: "Aseprite",
+    icon: "/icons/aseprite.png"
   }
 } as const;
 
@@ -212,7 +216,8 @@ const portfolioFeatures: PortfolioFeature[] = [
     title: "Adam Mitro's About Me Page",
     details: ["A space to share my education, work experience, projects I've built, and how you can contact me.",
       "This site is built with React and TailwindCSS, and is fully responsive for screens of any size, including phone screens.",
-      "The site supports both light and dark themes, which can be toggled using the switch in the side menu."
+      "The site supports both light and dark themes, which can be toggled using the switch in the side menu.",
+      "Behind my hero image, the animation responds to live weather conditions. For a deeper dive, check out my Animation Playground, where you can play with multiple layered animations I designed in Aseprite and explore all the creative combinations."
     ]
   },
 ]
@@ -309,7 +314,7 @@ export const PortfolioProjects: PortfolioItemProps[] = [
     projectName: "My Portfolio Site",
     features: portfolioFeatures,
     programmingLanguages: [
-      LanguageIcons.Typescript, LanguageIcons.HTML5, LanguageIcons.CSS3, FrameworkIcons.React, FrameworkIcons.TailwindCSS
+      LanguageIcons.Typescript, LanguageIcons.HTML5, LanguageIcons.CSS3, FrameworkIcons.React, FrameworkIcons.TailwindCSS, ExternalIcons.Aseprite
     ]
   },
   {
